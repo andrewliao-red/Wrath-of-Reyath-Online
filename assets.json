@@ -1,0 +1,1786 @@
+{
+  "gameTitle": "Wrath of Reyath",
+  "rules": {
+    "player": {
+      "minPlayers": 1,
+      "maxPlayers": 4,
+      "maxHealth": 5,
+      "maxArmor": 5,
+      "baseInventorySlots": 2,
+      "maxInventorySlots": 4,
+      "movementDirections": [
+        "up",
+        "down",
+        "left",
+        "right"
+      ],
+      "allowSharedTiles": true,
+      "allowDiagonalMovement": false
+    },
+    "reyath": {
+      "maxHealth": 20,
+      "startingState": "dormant",
+      "successfulEncounterDamage": 1,
+      "successfulEncounterRetreat": "hollow",
+      "noiseRequiresActiveReyath": true,
+      "baseMovesPerTurn": 1,
+      "movementStrategy": "nearest-player"
+    },
+    "balance": {
+      "playerDeckRollWeights": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 1,
+        "5": 1,
+        "6": 1
+      },
+      "cardDrawMultipliers": {
+        "damageBoost": 3,
+        "healing": 2.25,
+        "armor": 2.25
+      },
+      "encounterAdvantage": [
+        {
+          "reyathHealth": 20,
+          "playerSuccessChance": 0.75
+        },
+        {
+          "reyathHealth": 10,
+          "playerSuccessChance": 0.6
+        },
+        {
+          "reyathHealth": 5,
+          "playerSuccessChance": 0.5
+        }
+      ]
+    },
+    "automation": {
+      "thinkDelay": 420,
+      "defaultHumanPlayers": 1,
+      "strategies": {
+        "Baron Scorch": {
+          "style": "aggressive",
+          "preferredAxis": "row",
+          "finishWhenHealthAtOrBelow": 0,
+          "cautionDistance": 0,
+          "randomStepChance": 0
+        },
+        "Harry Wizard": {
+          "style": "tactical",
+          "preferredAxis": "column",
+          "finishWhenHealthAtOrBelow": 2,
+          "cautionDistance": 1,
+          "randomStepChance": 0.08
+        },
+        "Elf Archer": {
+          "style": "cautious",
+          "preferredAxis": "column",
+          "finishWhenHealthAtOrBelow": 2,
+          "cautionDistance": 2,
+          "randomStepChance": 0.12
+        },
+        "Khaos Agent": {
+          "style": "unpredictable",
+          "preferredAxis": "row",
+          "finishWhenHealthAtOrBelow": 1,
+          "cautionDistance": 1,
+          "randomStepChance": 0.3
+        }
+      }
+    },
+    "demolition": {
+      "saveRolls": [
+        1,
+        2,
+        3
+      ],
+      "destroyRolls": [
+        4,
+        5,
+        6
+      ],
+      "destroyedTint": "#ff3030",
+      "destroyedTilesRemainTraversable": true,
+      "playersTakeAutomaticDamage": false,
+      "hollowIsIndestructible": true
+    },
+    "priority2": {
+      "roadRow": 2,
+      "floodedWeather": "rain-storm",
+      "cardEffects": {
+        "deck01": {
+          "starbucks": [
+            { "type": "player-movement", "amount": 2 },
+            { "type": "movement-multiplier", "amount": 2, "durationTurns": 3, "starts": "current" }
+          ],
+          "pizza": [
+            { "type": "player-movement", "amount": 3 },
+            { "type": "health", "amount": 1 }
+          ],
+          "burger": [
+            { "type": "player-movement", "amount": 1 },
+            { "type": "health", "amount": 4 }
+          ],
+          "fried-chicken": [
+            { "type": "player-movement", "amount": 3 },
+            { "type": "health", "amount": 3 }
+          ],
+          "noodles": [
+            { "type": "player-movement", "amount": 1 },
+            { "type": "health", "amount": 2 }
+          ],
+          "trash-pizza": [
+            { "type": "player-movement", "amount": 1 },
+            { "type": "health", "amount": -1 }
+          ],
+          "pepper": [
+            { "type": "player-movement", "amount": 2 },
+            { "type": "health", "amount": -2 }
+          ],
+          "boba": [
+            { "type": "player-movement", "amount": 2 },
+            { "type": "movement-multiplier", "amount": 3, "durationTurns": 2, "starts": "current" }
+          ],
+          "tiger-sugar": [
+            { "type": "player-movement", "amount": 2 },
+            { "type": "status", "status": "damage-boost", "amount": 3, "durationTurns": 6, "starts": "current" }
+          ],
+          "burrito": [
+            { "type": "player-movement", "amount": 1 },
+            { "type": "health", "amount": 3 },
+            { "type": "reyath-stun", "durationTurns": 1 }
+          ],
+          "popcorn": [
+            { "type": "player-movement", "amount": 3 },
+            { "type": "health", "amount": 1 }
+          ]
+        },
+        "deck02": {
+          "backpack": [
+            { "type": "player-movement", "amount": 1 },
+            { "type": "inventory-slots", "amount": 2 }
+          ],
+          "boots": [
+            { "type": "player-movement", "amount": 3 },
+            { "type": "armor", "amount": 1 },
+            { "type": "perk", "perk": "fur-trapper-boots" }
+          ],
+          "tunic": [
+            { "type": "player-movement", "amount": 3 },
+            { "type": "armor", "amount": 1 }
+          ],
+          "helmet": [
+            { "type": "player-movement", "amount": 1 },
+            { "type": "armor", "amount": 2 }
+          ],
+          "shield": [
+            { "type": "player-movement", "amount": 2 },
+            { "type": "armor", "amount": 3 },
+            { "type": "movement-multiplier", "amount": 0.5, "durationTurns": 1, "starts": "next" }
+          ],
+          "cap": [
+            { "type": "player-movement", "amount": 2 },
+            { "type": "armor", "amount": 1 }
+          ]
+        },
+        "deck03": {
+          "thunder-storm": [
+            { "type": "set-weather", "weather": "thunder-storm", "texture": "rainy" },
+            { "type": "health", "amount": -2 },
+            { "type": "player-movement", "amount": 1 }
+          ],
+          "rain-storm": [
+            { "type": "set-weather", "weather": "rain-storm", "texture": "flooded" }
+          ],
+          "cool-breeze": [
+            { "type": "set-weather", "weather": "cool-breeze", "texture": "normal" },
+            { "type": "player-movement", "amount": 1 },
+            { "type": "movement-multiplier", "amount": 2, "durationTurns": 1, "starts": "next", "target": "all-players" }
+          ],
+          "frosty-freeze": [
+            { "type": "set-weather", "weather": "frosty-freeze", "texture": "normal" },
+            { "type": "player-movement", "amount": 2 },
+            { "type": "bonus-roll-movement", "amount": 1, "successRolls": [3, 6] }
+          ],
+          "warm-sweaty-day": [
+            { "type": "set-weather", "weather": "warm-sweaty-day", "texture": "sunny" },
+            { "type": "player-movement", "amount": 1 }
+          ],
+          "sunny-day": [
+            { "type": "set-weather", "weather": "sunny-day", "texture": "sunny" },
+            { "type": "player-movement", "amount": 2 }
+          ],
+          "strong-winds": [
+            { "type": "set-weather", "weather": "strong-winds", "texture": "normal" },
+            { "type": "strong-winds" }
+          ],
+          "humid-and-moist": [
+            { "type": "set-weather", "weather": "humid-and-moist", "texture": "normal" },
+            { "type": "player-movement", "amount": 3 },
+            { "type": "set-armor", "amount": 0 }
+          ]
+        },
+        "deck04": {
+          "nothing": [{ "type": "player-movement", "amount": 7 }],
+          "noisy": [
+            { "type": "player-movement", "amount": 10 },
+            { "type": "notice", "amount": 5 }
+          ],
+          "doordash": [
+            { "type": "player-movement", "amount": 4 },
+            { "type": "draw-card", "deck": "deck01" }
+          ],
+          "squirrel": [
+            { "type": "player-movement", "amount": 6 },
+            { "type": "health", "amount": -1 }
+          ],
+          "horse-kick": [
+            { "type": "player-movement", "amount": 6 },
+            { "type": "health", "amount": -2 }
+          ],
+          "annoying-crowd": [
+            { "type": "player-movement", "amount": 6 },
+            { "type": "movement-multiplier", "amount": 0.5, "durationTurns": 4, "starts": "next" }
+          ],
+          "lights": [
+            { "type": "skip-turns", "amount": 3, "starts": "next" }
+          ],
+          "bird": [
+            { "type": "player-movement", "amount": 8 },
+            { "type": "health", "amount": -1 }
+          ],
+          "broke": [
+            { "type": "player-movement", "amount": 6 },
+            { "type": "block-draw", "decks": ["deck01", "deck02"], "durationTurns": 1, "starts": "next" }
+          ],
+          "activists": [
+            { "type": "player-movement", "amount": 7 },
+            { "type": "health", "amount": -1 }
+          ]
+        },
+        "deck05": {
+          "horse-race": [
+            { "type": "player-movement", "amount": 3 },
+            { "type": "hearing-damage", "amount": 2 }
+          ],
+          "trash-cart": [
+            { "type": "player-movement", "amount": 2 },
+            { "type": "health", "amount": -1 }
+          ],
+          "bard": [
+            { "type": "player-movement", "amount": 2 },
+            { "type": "hearing-damage", "amount": 2 }
+          ],
+          "shaky-cart": [
+            { "type": "player-movement", "amount": 2 },
+            { "type": "movement-multiplier", "amount": 0.5, "durationTurns": 4, "starts": "next" }
+          ],
+          "yelling": [
+            { "type": "player-movement", "amount": 3 },
+            { "type": "hearing-damage", "amount": 1 }
+          ],
+          "squeaky-wheel": [
+            { "type": "player-movement", "amount": 2 },
+            { "type": "notice", "amount": 1 }
+          ],
+          "neighing-horse": [
+            { "type": "player-movement", "amount": 1 },
+            { "type": "hearing-damage", "amount": 1 }
+          ],
+          "birds-chirping": [
+            { "type": "player-movement", "amount": 1 },
+            { "type": "movement-multiplier", "amount": 2, "durationTurns": 4, "starts": "next" }
+          ],
+          "conversation": [
+            { "type": "player-movement", "amount": 3 },
+            { "type": "notice", "amount": 1 }
+          ]
+        },
+        "deck06": {
+          "shriek": [
+            { "type": "reyath-movement", "amount": 3 },
+            { "type": "reyath-attack", "pattern": "row", "damage": 2, "damageType": "hearing", "color": "#248cff" }
+          ],
+          "teleport": [
+            { "type": "monster-teleport", "destination": "most-noticed-player" },
+            { "type": "reyath-attack", "pattern": "surrounding-eight", "damage": 1, "dodgeThreshold": 3, "color": "#7fdcff" }
+          ],
+          "searching": [
+            { "type": "reyath-movement-mode", "mode": "weather-patrol" },
+            { "type": "reyath-movement", "amount": 3 }
+          ],
+          "swiper": [
+            { "type": "reyath-movement", "amount": 4 },
+            { "type": "reyath-attack", "pattern": "surrounding-eight", "damage": 1, "dodgeThreshold": 3, "color": "#4ea8ff" }
+          ],
+          "heavy-attack": [
+            { "type": "reyath-movement", "amount": 1 },
+            { "type": "reyath-attack", "pattern": "surrounding-four", "damage": 2, "dodgeThreshold": 3, "color": "#168cff" }
+          ],
+          "lethal-blow": [
+            { "type": "reyath-movement", "amount": 2 },
+            { "type": "reyath-attack", "pattern": "column", "damage": 3, "dodgeThreshold": 3, "color": "#248cff" }
+          ],
+          "thunderbolt": [
+            { "type": "reyath-movement", "amount": 3 },
+            { "type": "reyath-attack", "pattern": "surrounding-eight", "damage": 2, "dodgeThreshold": 3, "color": "#ffe74a" }
+          ],
+          "hypo-burst": [
+            { "type": "reyath-movement", "amount": 2 },
+            { "type": "reyath-attack", "pattern": "column", "damage": 0, "color": "#dffcff" }
+          ],
+          "searching-two": [
+            { "type": "reyath-movement-mode", "mode": "weather-patrol" },
+            { "type": "reyath-movement", "amount": 1 }
+          ],
+          "demolition": [
+            { "type": "destroy-reyath-location" }
+          ]
+        }
+      }
+    }
+  },
+  "textures": {
+    "cards": {
+      "food": {
+        "source": "procedural",
+        "pattern": "linen",
+        "base": "#151515",
+        "line": "#353535",
+        "accent": "#727272",
+        "scale": 9
+      },
+      "armor": {
+        "source": "procedural",
+        "pattern": "diagonal",
+        "base": "#0d0d0d",
+        "line": "#3d3d3d",
+        "accent": "#8a8a8a",
+        "scale": 12
+      },
+      "weather": {
+        "source": "procedural",
+        "pattern": "waves",
+        "base": "#171717",
+        "line": "#414141",
+        "accent": "#787878",
+        "scale": 16
+      },
+      "unluckiness": {
+        "source": "procedural",
+        "pattern": "crosshatch",
+        "base": "#090909",
+        "line": "#343434",
+        "accent": "#686868",
+        "scale": 14
+      },
+      "noise": {
+        "source": "procedural",
+        "pattern": "signal",
+        "base": "#111111",
+        "line": "#4a4a4a",
+        "accent": "#969696",
+        "scale": 10
+      },
+      "monster": {
+        "source": "procedural",
+        "pattern": "scales",
+        "base": "#0c0c0c",
+        "line": "#383838",
+        "accent": "#757575",
+        "scale": 18
+      }
+    },
+    "board": {
+      "location": {
+        "source": "procedural",
+        "pattern": "stone",
+        "base": "#111111",
+        "line": "#353535",
+        "accent": "#555555",
+        "repeat": [
+          2.2,
+          1.4
+        ],
+        "roughness": 0.52,
+        "metalness": 0.04
+      },
+      "locations": {
+        "location-01": {
+          "source": "image",
+          "url": "pictures-textures-assets/tiles/location-tiles/location-13.jpg",
+          "repeat": [
+            1,
+            1
+          ],
+          "roughness": 0.9,
+          "metalness": 0.02
+        },
+        "location-02": {
+          "source": "image",
+          "url": "pictures-textures-assets/tiles/location-tiles/location-14.png",
+          "repeat": [
+            1,
+            1
+          ],
+          "roughness": 0.9,
+          "metalness": 0.02
+        },
+        "location-03": {
+          "source": "image",
+          "url": "pictures-textures-assets/tiles/location-tiles/location-15.jpg",
+          "repeat": [
+            1,
+            1
+          ],
+          "roughness": 0.9,
+          "metalness": 0.02
+        },
+        "location-04": {
+          "source": "image",
+          "url": "pictures-textures-assets/tiles/location-tiles/location-16.png",
+          "repeat": [
+            1,
+            1
+          ],
+          "roughness": 0.9,
+          "metalness": 0.02
+        },
+        "location-05": {
+          "source": "image",
+          "url": "pictures-textures-assets/tiles/location-tiles/location-09.png",
+          "repeat": [
+            1,
+            1
+          ],
+          "roughness": 0.9,
+          "metalness": 0.02
+        },
+        "location-06": {
+          "source": "image",
+          "url": "pictures-textures-assets/tiles/location-tiles/location-10.png",
+          "repeat": [
+            1,
+            1
+          ],
+          "roughness": 0.9,
+          "metalness": 0.02
+        },
+        "location-07": {
+          "source": "image",
+          "url": "pictures-textures-assets/tiles/location-tiles/location-11.jpg",
+          "repeat": [
+            1,
+            1
+          ],
+          "roughness": 0.9,
+          "metalness": 0.02
+        },
+        "location-08": {
+          "source": "image",
+          "url": "pictures-textures-assets/tiles/location-tiles/location-12.png",
+          "repeat": [
+            1,
+            1
+          ],
+          "roughness": 0.9,
+          "metalness": 0.02
+        },
+        "location-09": {
+          "source": "image",
+          "url": "pictures-textures-assets/tiles/location-tiles/location-05.png",
+          "repeat": [
+            1,
+            1
+          ],
+          "roughness": 0.9,
+          "metalness": 0.02
+        },
+        "location-10": {
+          "source": "image",
+          "url": "pictures-textures-assets/tiles/location-tiles/location-06.jpg",
+          "repeat": [
+            1,
+            1
+          ],
+          "roughness": 0.9,
+          "metalness": 0.02
+        },
+        "location-11": {
+          "source": "image",
+          "url": "pictures-textures-assets/tiles/location-tiles/location-07.jpg",
+          "repeat": [
+            1,
+            1
+          ],
+          "roughness": 0.9,
+          "metalness": 0.02
+        },
+        "location-12": {
+          "source": "image",
+          "url": "pictures-textures-assets/tiles/location-tiles/location-08.png",
+          "repeat": [
+            1,
+            1
+          ],
+          "roughness": 0.9,
+          "metalness": 0.02
+        },
+        "location-13": {
+          "source": "image",
+          "url": "pictures-textures-assets/tiles/location-tiles/location-01.jpg",
+          "repeat": [
+            1,
+            1
+          ],
+          "roughness": 0.9,
+          "metalness": 0.02
+        },
+        "location-14": {
+          "source": "image",
+          "url": "pictures-textures-assets/tiles/location-tiles/location-02.jpg",
+          "repeat": [
+            1,
+            1
+          ],
+          "roughness": 0.9,
+          "metalness": 0.02
+        },
+        "location-15": {
+          "source": "image",
+          "url": "pictures-textures-assets/tiles/location-tiles/location-03.jpg",
+          "repeat": [
+            1,
+            1
+          ],
+          "roughness": 0.9,
+          "metalness": 0.02
+        },
+        "location-16": {
+          "source": "image",
+          "url": "pictures-textures-assets/tiles/location-tiles/location-04.png",
+          "repeat": [
+            1,
+            1
+          ],
+          "roughness": 0.9,
+          "metalness": 0.02
+        }
+      },
+      "weather": {
+        "source": "image",
+        "url": "pictures-textures-assets/tiles/weather-tiles/weather-normal.png",
+        "repeat": [
+          1,
+          1
+        ],
+        "roughness": 0.84,
+        "metalness": 0.06
+      },
+      "weatherStates": {
+        "normal": {
+          "source": "image",
+          "url": "pictures-textures-assets/tiles/weather-tiles/weather-normal.png",
+          "repeat": [1, 1],
+          "roughness": 0.84,
+          "metalness": 0.06
+        },
+        "flooded": {
+          "source": "image",
+          "url": "pictures-textures-assets/tiles/weather-tiles/weather-flooded.png",
+          "repeat": [1, 1],
+          "roughness": 0.84,
+          "metalness": 0.06
+        },
+        "rainy": {
+          "source": "image",
+          "url": "pictures-textures-assets/tiles/weather-tiles/weather-rainy.png",
+          "repeat": [1, 1],
+          "roughness": 0.84,
+          "metalness": 0.06
+        },
+        "sunny": {
+          "source": "image",
+          "url": "pictures-textures-assets/tiles/weather-tiles/weather-sunny.png",
+          "repeat": [1, 1],
+          "roughness": 0.84,
+          "metalness": 0.06
+        }
+      },
+      "base": {
+        "source": "procedural",
+        "pattern": "wood",
+        "base": "#070707",
+        "line": "#262626",
+        "accent": "#414141",
+        "repeat": [
+          3.5,
+          2.6
+        ],
+        "roughness": 0.96,
+        "metalness": 0.02
+      }
+    },
+    "ui": {}
+  },
+  "decks": [
+    {
+      "id": "deck01",
+      "number": 1,
+      "name": "Food + Healing",
+      "code": "01",
+      "texture": "food",
+      "folder": "pictures-textures-assets/cards/deck01",
+      "backImage": "pictures-textures-assets/cards/number-side/backside-01.jpg",
+      "faceRotation": 90,
+      "cards": [
+        {
+          "id": "starbucks",
+          "name": "Stim Potion",
+          "file": "01-starbucks.jpg",
+          "effects": [
+            {
+              "type": "movement-multiplier",
+              "amount": 2,
+              "durationTurns": 2,
+              "target": "current-player"
+            },
+            {
+              "type": "movement",
+              "amount": 1,
+              "target": "reyath"
+            }
+          ]
+        },
+        {
+          "id": "pizza",
+          "name": "Pepperoni Pizza",
+          "file": "02-pizza.jpg",
+          "effects": [
+            {
+              "type": "health",
+              "amount": 1,
+              "target": "current-player"
+            },
+            {
+              "type": "movement",
+              "amount": 3,
+              "target": "reyath"
+            }
+          ]
+        },
+        {
+          "id": "burger",
+          "name": "Shack Smash Burger",
+          "file": "03-burger.jpg",
+          "effects": [
+            {
+              "type": "health",
+              "amount": 4,
+              "target": "current-player"
+            },
+            {
+              "type": "movement",
+              "amount": 1,
+              "target": "reyath"
+            }
+          ]
+        },
+        {
+          "id": "fried-chicken",
+          "name": "Hearty Fried Chicken",
+          "file": "04-friedchicken.jpg",
+          "effects": [
+            {
+              "type": "health",
+              "amount": 3,
+              "target": "current-player"
+            },
+            {
+              "type": "movement",
+              "amount": 3,
+              "target": "reyath"
+            }
+          ]
+        },
+        {
+          "id": "noodles",
+          "name": "Far East Noodles",
+          "file": "05-noodles.jpg",
+          "effects": [
+            {
+              "type": "health",
+              "amount": 2,
+              "target": "current-player"
+            },
+            {
+              "type": "movement",
+              "amount": 1,
+              "target": "reyath"
+            }
+          ]
+        },
+        {
+          "id": "trash-pizza",
+          "name": "Alley-Way Pizza",
+          "file": "06-trash.jpg",
+          "effects": [
+            {
+              "type": "health",
+              "amount": -1,
+              "target": "current-player"
+            },
+            {
+              "type": "movement",
+              "amount": 1,
+              "target": "reyath"
+            }
+          ]
+        },
+        {
+          "id": "pepper",
+          "name": "Chipotle Chilli Pepper",
+          "file": "07-pepper.jpg",
+          "effects": [
+            {
+              "type": "health",
+              "amount": -2,
+              "target": "current-player"
+            },
+            {
+              "type": "movement",
+              "amount": 2,
+              "target": "reyath"
+            }
+          ]
+        },
+        {
+          "id": "boba",
+          "name": "Sweet Bubble Potion",
+          "file": "08-boba.jpg",
+          "effects": [
+            {
+              "type": "movement-multiplier",
+              "amount": 3,
+              "durationTurns": 2,
+              "target": "current-player"
+            },
+            {
+              "type": "movement",
+              "amount": 2,
+              "target": "reyath"
+            }
+          ]
+        },
+        {
+          "id": "tiger-sugar",
+          "name": "Tiger Sugar Elixir",
+          "file": "09-tigersugar.jpg",
+          "effects": [
+            {
+              "type": "status",
+              "status": "damage-boost",
+              "amount": 3,
+              "durationTurns": 6,
+              "target": "current-player"
+            },
+            {
+              "type": "movement",
+              "amount": 2,
+              "target": "reyath"
+            }
+          ]
+        },
+        {
+          "id": "burrito",
+          "name": "Burrito Bowl Blaster",
+          "file": "10-burrito.jpg",
+          "effects": [
+            {
+              "type": "health",
+              "amount": 2,
+              "target": "current-player"
+            },
+            {
+              "type": "movement",
+              "amount": 1,
+              "target": "reyath"
+            }
+          ]
+        },
+        {
+          "id": "popcorn",
+          "name": "Avon Popcorn",
+          "file": "11-popcorn.jpg",
+          "uses": 6,
+          "effects": [
+            {
+              "type": "health",
+              "amount": 1,
+              "target": "current-player"
+            },
+            {
+              "type": "movement",
+              "amount": 3,
+              "target": "reyath"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "deck02",
+      "number": 2,
+      "name": "Clothing + Armor",
+      "code": "02",
+      "texture": "armor",
+      "folder": "pictures-textures-assets/cards/deck02",
+      "backImage": "pictures-textures-assets/cards/number-side/backside-02.jpg",
+      "faceRotation": 90,
+      "cards": [
+        {
+          "id": "backpack",
+          "name": "Adventurer's Pack",
+          "file": "01-backpack.jpg",
+          "effects": [
+            {
+              "type": "inventory-slots",
+              "amount": 2,
+              "target": "current-player"
+            },
+            {
+              "type": "movement",
+              "amount": 1,
+              "target": "reyath"
+            }
+          ]
+        },
+        {
+          "id": "boots",
+          "name": "Fur Trapper Boots",
+          "file": "02-boots.jpg",
+          "effects": [
+            {
+              "type": "armor",
+              "amount": 1,
+              "target": "current-player"
+            },
+            {
+              "type": "movement",
+              "amount": 2,
+              "target": "reyath"
+            }
+          ]
+        },
+        {
+          "id": "tunic",
+          "name": "Peasant Tunic",
+          "file": "03-tunic.jpg",
+          "effects": [
+            {
+              "type": "armor",
+              "amount": 1,
+              "target": "current-player"
+            },
+            {
+              "type": "movement",
+              "amount": 3,
+              "target": "reyath"
+            }
+          ]
+        },
+        {
+          "id": "helmet",
+          "name": "Brown Guard Helmet",
+          "file": "04-helmet.jpg",
+          "effects": [
+            {
+              "type": "armor",
+              "amount": 2,
+              "target": "current-player"
+            },
+            {
+              "type": "movement",
+              "amount": 1,
+              "target": "reyath"
+            }
+          ]
+        },
+        {
+          "id": "shield",
+          "name": "Shield Bag",
+          "file": "05-shield.jpg",
+          "effects": [
+            {
+              "type": "armor",
+              "amount": 3,
+              "target": "current-player"
+            },
+            {
+              "type": "movement",
+              "amount": 2,
+              "target": "reyath"
+            }
+          ]
+        },
+        {
+          "id": "cap",
+          "name": "Peasant Cap",
+          "file": "06-cap.jpg",
+          "effects": [
+            {
+              "type": "armor",
+              "amount": 1,
+              "target": "current-player"
+            },
+            {
+              "type": "movement",
+              "amount": 2,
+              "target": "reyath"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "deck03",
+      "number": 3,
+      "name": "Weather",
+      "code": "03",
+      "storable": false,
+      "resolution": "automatic",
+      "texture": "weather",
+      "folder": "pictures-textures-assets/cards/deck03",
+      "backImage": "pictures-textures-assets/cards/number-side/backside-03.jpg",
+      "faceRotation": 90,
+      "cards": [
+        {
+          "id": "thunder-storm",
+          "name": "Thunder Storm",
+          "file": "01-storm.jpg",
+          "weatherId": "thunder-storm",
+          "effects": [
+            {
+              "type": "set-weather",
+              "weather": "thunder-storm"
+            },
+            {
+              "type": "movement",
+              "amount": 1,
+              "target": "reyath"
+            }
+          ]
+        },
+        {
+          "id": "rain-storm",
+          "name": "Rain Storm",
+          "file": "02-rain.jpg",
+          "weatherId": "rain-storm",
+          "effects": [
+            {
+              "type": "set-weather",
+              "weather": "rain-storm"
+            },
+            {
+              "type": "movement-multiplier",
+              "amount": 0.5,
+              "duration": "until-weather-changes",
+              "target": "all-players"
+            },
+            {
+              "type": "movement",
+              "amount": 2,
+              "target": "reyath"
+            }
+          ]
+        },
+        {
+          "id": "cool-breeze",
+          "name": "Cool Breeze",
+          "file": "03-autumn.jpg",
+          "weatherId": "cool-breeze",
+          "effects": [
+            {
+              "type": "set-weather",
+              "weather": "cool-breeze"
+            },
+            {
+              "type": "movement",
+              "amount": 1,
+              "target": "reyath"
+            }
+          ]
+        },
+        {
+          "id": "frosty-freeze",
+          "name": "Frosty Freeze",
+          "file": "04-snow.jpg",
+          "weatherId": "frosty-freeze",
+          "effects": [
+            {
+              "type": "set-weather",
+              "weather": "frosty-freeze"
+            },
+            {
+              "type": "movement-multiplier",
+              "amount": 0.5,
+              "duration": "until-weather-changes",
+              "target": "all-players"
+            },
+            {
+              "type": "movement",
+              "amount": 2,
+              "target": "reyath"
+            }
+          ]
+        },
+        {
+          "id": "warm-sweaty-day",
+          "name": "Warm Sweaty Day",
+          "file": "05-summer.jpg",
+          "weatherId": "warm-sweaty-day",
+          "effects": [
+            {
+              "type": "set-weather",
+              "weather": "warm-sweaty-day"
+            },
+            {
+              "type": "movement",
+              "amount": 1,
+              "target": "reyath"
+            }
+          ]
+        },
+        {
+          "id": "sunny-day",
+          "name": "Sunny Day",
+          "file": "06-sunnyday.jpg",
+          "weatherId": "sunny-day",
+          "effects": [
+            {
+              "type": "set-weather",
+              "weather": "sunny-day"
+            },
+            {
+              "type": "clear-weather-statuses",
+              "target": "all-players"
+            },
+            {
+              "type": "movement",
+              "amount": 2,
+              "target": "reyath"
+            }
+          ]
+        },
+        {
+          "id": "strong-winds",
+          "name": "Strong Winds",
+          "file": "07-windy.jpg",
+          "weatherId": "strong-winds",
+          "effects": [
+            {
+              "type": "set-weather",
+              "weather": "strong-winds"
+            },
+            {
+              "type": "movement",
+              "amount": 1,
+              "target": "reyath"
+            }
+          ]
+        },
+        {
+          "id": "humid-and-moist",
+          "name": "Humid and Moist",
+          "file": "08-swamp.jpg",
+          "weatherId": "humid-and-moist",
+          "effects": [
+            {
+              "type": "set-weather",
+              "weather": "humid-and-moist"
+            },
+            {
+              "type": "armor",
+              "amount": -5,
+              "target": "all-players"
+            },
+            {
+              "type": "movement",
+              "amount": 3,
+              "target": "reyath"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "deck04",
+      "number": 4,
+      "name": "Unluckiness",
+      "code": "04",
+      "texture": "unluckiness",
+      "folder": "pictures-textures-assets/cards/deck04",
+      "backImage": "pictures-textures-assets/cards/number-side/backside-04.jpg",
+      "faceRotation": 90,
+      "cards": [
+        {
+          "id": "nothing",
+          "name": "Nothing",
+          "file": "01-nothing.jpg",
+          "effects": [
+            {
+              "type": "movement",
+              "amount": 7,
+              "target": "reyath"
+            }
+          ]
+        },
+        {
+          "id": "noisy",
+          "name": "TP'd to Noisy Area",
+          "file": "02-noisy.jpg",
+          "effects": [
+            {
+              "type": "teleport",
+              "destination": "nearest-noisy-tile",
+              "target": "current-player"
+            },
+            {
+              "type": "reyath-awareness",
+              "amount": 5
+            },
+            {
+              "type": "movement",
+              "amount": 10,
+              "target": "reyath"
+            }
+          ]
+        },
+        {
+          "id": "doordash",
+          "name": "Door Dash Disaster",
+          "file": "03-doordash.jpg",
+          "effects": [
+            {
+              "type": "block-draw",
+              "deck": "deck01",
+              "amount": 1,
+              "target": "current-player"
+            },
+            {
+              "type": "movement",
+              "amount": 10,
+              "target": "reyath"
+            }
+          ]
+        },
+        {
+          "id": "squirrel",
+          "name": "Squirrel Bite",
+          "file": "04-squirrel.jpg",
+          "effects": [
+            {
+              "type": "health",
+              "amount": -1,
+              "target": "current-player"
+            },
+            {
+              "type": "movement",
+              "amount": 6,
+              "target": "reyath"
+            }
+          ]
+        },
+        {
+          "id": "horse-kick",
+          "name": "Kicked by Horse",
+          "file": "05-horsekick.jpg",
+          "effects": [
+            {
+              "type": "health",
+              "amount": -2,
+              "target": "current-player"
+            },
+            {
+              "type": "movement",
+              "amount": 6,
+              "target": "reyath"
+            }
+          ]
+        },
+        {
+          "id": "annoying-crowd",
+          "name": "Annoying Caravan",
+          "file": "06-annoyingcrowd.jpg",
+          "effects": [
+            {
+              "type": "movement-multiplier",
+              "amount": 0.5,
+              "durationTurns": 4,
+              "target": "current-player"
+            },
+            {
+              "type": "movement",
+              "amount": 6,
+              "target": "reyath"
+            }
+          ]
+        },
+        {
+          "id": "lights",
+          "name": "Stop Light Stupidity",
+          "file": "07-lights.jpg",
+          "effects": [
+            {
+              "type": "skip-turns",
+              "amount": 3,
+              "target": "current-player"
+            }
+          ]
+        },
+        {
+          "id": "bird",
+          "name": "Bird Turd",
+          "file": "08-birdshit.jpg",
+          "effects": [
+            {
+              "type": "health",
+              "amount": -1,
+              "target": "current-player"
+            },
+            {
+              "type": "movement",
+              "amount": 8,
+              "target": "reyath"
+            }
+          ]
+        },
+        {
+          "id": "broke",
+          "name": "Tempted Budget",
+          "file": "09-brokeaf.jpg",
+          "effects": [
+            {
+              "type": "block-draw",
+              "amount": 1,
+              "durationTurns": 1,
+              "target": "current-player"
+            },
+            {
+              "type": "movement",
+              "amount": 6,
+              "target": "reyath"
+            }
+          ]
+        },
+        {
+          "id": "activists",
+          "name": "Quacktivist",
+          "file": "10-activists.jpg",
+          "effects": [
+            {
+              "type": "health",
+              "amount": -1,
+              "target": "current-player"
+            },
+            {
+              "type": "movement",
+              "amount": 7,
+              "target": "reyath"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "deck05",
+      "number": 5,
+      "name": "Noise",
+      "code": "05",
+      "texture": "noise",
+      "folder": "pictures-textures-assets/cards/deck05",
+      "backImage": "pictures-textures-assets/cards/number-side/backside-05.jpg",
+      "faceRotation": 90,
+      "cards": [
+        {
+          "id": "horse-race",
+          "name": "Horse Race",
+          "file": "01-horserace.jpg",
+          "effects": [
+            {
+              "type": "hearing-damage",
+              "amount": 2,
+              "target": "current-player"
+            },
+            {
+              "type": "movement",
+              "amount": 3,
+              "target": "reyath"
+            }
+          ]
+        },
+        {
+          "id": "trash-cart",
+          "name": "Trash Cart",
+          "file": "02-trashbin.jpg",
+          "effects": [
+            {
+              "type": "hearing-damage",
+              "amount": 1,
+              "target": "current-player"
+            },
+            {
+              "type": "movement",
+              "amount": 2,
+              "target": "reyath"
+            }
+          ]
+        },
+        {
+          "id": "bard",
+          "name": "Musical Bard",
+          "file": "03-bard.jpg",
+          "effects": [
+            {
+              "type": "hearing-damage",
+              "amount": 2,
+              "target": "current-player"
+            },
+            {
+              "type": "movement",
+              "amount": 3,
+              "target": "reyath"
+            }
+          ]
+        },
+        {
+          "id": "shaky-cart",
+          "name": "Shaky Cart",
+          "file": "04-shakycart.jpg",
+          "effects": [
+            {
+              "type": "movement-multiplier",
+              "amount": 0.5,
+              "durationTurns": 4,
+              "target": "current-player"
+            },
+            {
+              "type": "movement",
+              "amount": 2,
+              "target": "reyath"
+            }
+          ]
+        },
+        {
+          "id": "yelling",
+          "name": "Yelling Villagers",
+          "file": "05-yelling.jpg",
+          "effects": [
+            {
+              "type": "hearing-damage",
+              "amount": 1,
+              "target": "current-player"
+            },
+            {
+              "type": "movement",
+              "amount": 3,
+              "target": "reyath"
+            }
+          ]
+        },
+        {
+          "id": "squeaky-wheel",
+          "name": "Squeaking Wheel",
+          "file": "06-squeakywheel.jpg",
+          "effects": [
+            {
+              "type": "reyath-awareness",
+              "amount": 1
+            },
+            {
+              "type": "movement",
+              "amount": 2,
+              "target": "reyath"
+            }
+          ]
+        },
+        {
+          "id": "neighing-horse",
+          "name": "Neighing Horse",
+          "file": "07-neighinghorse.jpg",
+          "effects": [
+            {
+              "type": "hearing-damage",
+              "amount": 2,
+              "target": "current-player"
+            },
+            {
+              "type": "movement",
+              "amount": 1,
+              "target": "reyath"
+            }
+          ]
+        },
+        {
+          "id": "birds-chirping",
+          "name": "Birds Chirping",
+          "file": "08-birdschirping.jpg",
+          "effects": [
+            {
+              "type": "movement-multiplier",
+              "amount": 2,
+              "durationTurns": 4,
+              "target": "current-player"
+            },
+            {
+              "type": "movement",
+              "amount": 1,
+              "target": "reyath"
+            }
+          ]
+        },
+        {
+          "id": "conversation",
+          "name": "Conversation",
+          "file": "09-conversation.jpg",
+          "effects": [
+            {
+              "type": "reyath-awareness",
+              "amount": 1
+            },
+            {
+              "type": "movement",
+              "amount": 3,
+              "target": "reyath"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "deck06",
+      "number": 6,
+      "name": "Reyath",
+      "code": "06",
+      "storable": false,
+      "resolution": "automatic",
+      "texture": "monster",
+      "folder": "pictures-textures-assets/cards/deck06",
+      "backImage": "pictures-textures-assets/cards/number-side/backside-06.jpg",
+      "faceRotation": 90,
+      "cards": [
+        {
+          "id": "shriek",
+          "name": "Reyath Shriek",
+          "file": "01-shriek.jpg",
+          "effects": [
+            {
+              "type": "movement",
+              "amount": 3,
+              "target": "reyath"
+            },
+            {
+              "type": "hearing-damage",
+              "amount": 2,
+              "target": "all-players"
+            }
+          ]
+        },
+        {
+          "id": "teleport",
+          "name": "Teleports to Tile",
+          "file": "02-teleport.jpg",
+          "effects": [
+            {
+              "type": "monster-teleport",
+              "destination": "most-noticed-player"
+            },
+            {
+              "type": "health",
+              "amount": -1,
+              "target": "proximate-player"
+            }
+          ]
+        },
+        {
+          "id": "searching",
+          "name": "Reyath Searches",
+          "file": "03-searching.jpg",
+          "effects": [
+            {
+              "type": "movement",
+              "amount": 3,
+              "target": "reyath"
+            }
+          ]
+        },
+        {
+          "id": "swiper",
+          "name": "Reyath Swipes",
+          "file": "04-swiper.jpg",
+          "effects": [
+            {
+              "type": "movement",
+              "amount": 4,
+              "target": "reyath"
+            },
+            {
+              "type": "health",
+              "amount": -1,
+              "target": "proximate-player"
+            }
+          ]
+        },
+        {
+          "id": "heavy-attack",
+          "name": "Heavy Ground Pound",
+          "file": "05-heavyattk.jpg",
+          "effects": [
+            {
+              "type": "movement",
+              "amount": 1,
+              "target": "reyath"
+            },
+            {
+              "type": "health",
+              "amount": -2,
+              "target": "proximate-player"
+            }
+          ]
+        },
+        {
+          "id": "lethal-blow",
+          "name": "Lethal Blow",
+          "file": "06-lethalblow.jpg",
+          "effects": [
+            {
+              "type": "movement",
+              "amount": 2,
+              "target": "reyath"
+            },
+            {
+              "type": "health",
+              "amount": -3,
+              "target": "proximate-player"
+            }
+          ]
+        },
+        {
+          "id": "thunderbolt",
+          "name": "Thunder Bolt",
+          "file": "07-thunderbolt.jpg",
+          "effects": [
+            {
+              "type": "movement",
+              "amount": 3,
+              "target": "reyath"
+            },
+            {
+              "type": "health",
+              "amount": -2,
+              "target": "current-player"
+            }
+          ]
+        },
+        {
+          "id": "hypo-burst",
+          "name": "Hypo Burst",
+          "file": "08-hypoburst.jpg",
+          "effects": [
+            {
+              "type": "movement",
+              "amount": 3,
+              "target": "reyath"
+            }
+          ]
+        },
+        {
+          "id": "searching-two",
+          "name": "Reyath Searches",
+          "file": "09-searching2.jpg",
+          "effects": [
+            {
+              "type": "movement",
+              "amount": 1,
+              "target": "reyath"
+            }
+          ]
+        },
+        {
+          "id": "demolition",
+          "name": "Demolition",
+          "file": "10-demolish.jpg",
+          "weight": 1.5,
+          "effects": [
+            {
+              "type": "destroy-reyath-location"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "board": {
+    "columns": 4,
+    "rows": 4,
+    "weatherLabel": "Current Weather",
+    "locations": [
+      {
+        "id": 1,
+        "name": "Location 01",
+        "texture": "location-01"
+      },
+      {
+        "id": 2,
+        "name": "Location 02",
+        "texture": "location-02"
+      },
+      {
+        "id": 3,
+        "name": "Location 03",
+        "texture": "location-03"
+      },
+      {
+        "id": 4,
+        "name": "Location 04",
+        "texture": "location-04"
+      },
+      {
+        "id": 5,
+        "name": "Location 05",
+        "texture": "location-05"
+      },
+      {
+        "id": 6,
+        "name": "Location 06",
+        "texture": "location-06"
+      },
+      {
+        "id": 7,
+        "name": "Location 07",
+        "texture": "location-07"
+      },
+      {
+        "id": 8,
+        "name": "Location 08",
+        "texture": "location-08"
+      },
+      {
+        "id": 9,
+        "name": "Location 09",
+        "texture": "location-09"
+      },
+      {
+        "id": 10,
+        "name": "Location 10",
+        "texture": "location-10"
+      },
+      {
+        "id": 11,
+        "name": "Location 11",
+        "texture": "location-11"
+      },
+      {
+        "id": 12,
+        "name": "Location 12",
+        "texture": "location-12"
+      },
+      {
+        "id": 13,
+        "name": "Location 13",
+        "texture": "location-13"
+      },
+      {
+        "id": 14,
+        "name": "Location 14",
+        "texture": "location-14"
+      },
+      {
+        "id": 15,
+        "name": "Location 15",
+        "texture": "location-15"
+      },
+      {
+        "id": 16,
+        "name": "Location 16",
+        "texture": "location-16"
+      }
+    ]
+  },
+  "players": [
+    {
+      "id": 1,
+      "name": "Player 1",
+      "characterName": "Baron Scorch",
+      "sprite": "pictures-textures-assets/characters/baron-scorch-oc/BaronScorch.png",
+      "startPosition": {
+        "column": 0,
+        "row": 4
+      }
+    },
+    {
+      "id": 2,
+      "name": "Player 2",
+      "characterName": "Harry Wizard",
+      "sprite": "pictures-textures-assets/characters/hari-wizard-oc/HarryWizard.png",
+      "startPosition": {
+        "column": 0,
+        "row": 4
+      }
+    },
+    {
+      "id": 3,
+      "name": "Player 3",
+      "characterName": "Elf Archer",
+      "sprite": "pictures-textures-assets/characters/elf-oc/Elf-Archer.png",
+      "startPosition": {
+        "column": 0,
+        "row": 4
+      }
+    },
+    {
+      "id": 4,
+      "name": "Player 4",
+      "characterName": "Khaos Agent",
+      "sprite": "pictures-textures-assets/characters/khaos-agent-oc/NoobSaibot.png",
+      "startPosition": {
+        "column": 0,
+        "row": 4
+      }
+    }
+  ],
+  "reyath": {
+    "name": "Reyath",
+    "sprite": "pictures-textures-assets/characters/reyath/Reyath.png",
+    "health": 20,
+    "maxHealth": 20,
+    "state": "dormant",
+    "startPosition": {
+      "column": 3,
+      "row": 0
+    },
+    "scale": 2
+  },
+  "dice": {
+    "size": 1.6,
+    "textures": {
+      "1": "pictures-textures-assets/dice/dice-1.png",
+      "2": "pictures-textures-assets/dice/dice-2.png",
+      "3": "pictures-textures-assets/dice/dice-3.png",
+      "4": "pictures-textures-assets/dice/dice-4.png",
+      "5": "pictures-textures-assets/dice/dice-5.png",
+      "6": "pictures-textures-assets/dice/dice-6.png"
+    },
+    "animation": {
+      "gravity": -22,
+      "launchVelocity": 9,
+      "horizontalVelocity": 1.4,
+      "restitution": 0.56,
+      "bounceCount": 3,
+      "rotationSpeed": 11,
+      "settleDuration": 450
+    }
+  }
+}
+

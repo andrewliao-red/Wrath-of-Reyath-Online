@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Wrath of Reyath online board game prototype">
+  <title>Wrath of Reyath | Board Prototype</title>
+  <link rel="stylesheet" href="style.css">
+
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.187.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.187.0/examples/jsm/"
+      }
+    }
+  </script>
+
+  <script type="module" src="script.js"></script>
+  <script type="module" src="card-system.js"></script>
+</head>
+
+<body>
+  <div class="game-setup-layer" id="game-setup-layer">
+    <section
+      class="game-setup-dialog"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="game-setup-title"
+      aria-describedby="game-setup-description"
+    >
+      <header class="game-setup-header">
+        <p class="game-setup-kicker">New game</p>
+        <h1 id="game-setup-title">Choose your players</h1>
+        <p id="game-setup-description">
+          Select 1–4 characters. Mark each character as Player or Bot before starting.
+        </p>
+      </header>
+
+      <div class="player-count-control" aria-label="Number of players">
+        <button id="player-count-decrease" type="button" aria-label="Remove one player">−</button>
+        <output id="player-count-output" aria-live="polite">4 players</output>
+        <button id="player-count-increase" type="button" aria-label="Add one player">+</button>
+      </div>
+
+      <div
+        class="character-selection-grid"
+        id="character-selection-grid"
+        aria-label="Character selection"
+      ></div>
+
+      <p class="game-setup-error" id="game-setup-error" aria-live="assertive"></p>
+
+      <button class="start-game-button" id="start-game" type="button">
+        Start game
+      </button>
+    </section>
+  </div>
+
+  <main class="game-shell">
+    <section class="deck-section" aria-labelledby="deck-heading">
+      <h2 id="deck-heading">Card decks</h2>
+      <div class="deck-row" id="deck-row" aria-label="Six numbered card decks"></div>
+    </section>
+
+    <section class="table-section" aria-labelledby="board-heading">
+      <div class="board-toolbar">
+        <h2 id="board-heading">Board</h2>
+
+        <div class="reyath-hud" aria-label="Reyath status">
+          <span class="reyath-hud__label">Reyath</span>
+          <div
+            class="reyath-health-track"
+            role="progressbar"
+            aria-label="Reyath health"
+            aria-valuemin="0"
+            aria-valuemax="20"
+            aria-valuenow="20"
+          >
+            <span id="reyath-health-fill"></span>
+          </div>
+          <output id="reyath-health-value">20 / 20 HP</output>
+          <span id="reyath-state-value">Dormant</span>
+        </div>
+
+        <div class="board-controls" aria-label="Board navigation controls">
+          <button class="board-control" id="zoom-out" type="button" aria-label="Zoom out">−</button>
+          <output class="zoom-level" id="zoom-level" aria-live="polite">100%</output>
+          <button class="board-control" id="zoom-in" type="button" aria-label="Zoom in">+</button>
+          <button class="board-control reset-control" id="reset-view" type="button">Reset view</button>
+          <button
+            class="board-control sound-control"
+            id="sound-toggle"
+            type="button"
+            aria-label="Enable game sound effects"
+            aria-pressed="false"
+          >
+            Sound off
+          </button>
+        </div>
+      </div>
+
+      <div
+        class="board-viewport"
+        id="board-viewport"
+        tabindex="0"
+        aria-label="Navigable three-dimensional game board. Left-drag to pan, scroll to zoom, and middle-drag or right-drag to orbit."
+      >
+        <div class="board-canvas" id="board-canvas">
+          <canvas
+            class="board-webgl"
+            id="board-webgl"
+            aria-hidden="true"
+          ></canvas>
+
+          <p class="board-instructions" aria-hidden="true">
+            Left-drag: pan · Wheel: zoom · Middle/right-drag: orbit
+          </p>
+
+          <ol
+            class="board-event-log"
+            id="board-event-log"
+            aria-label="Recent game events"
+            aria-live="polite"
+          ></ol>
+
+          <p class="sr-only" id="board-status" aria-live="polite">
+            Three-dimensional board loading.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="dice-section" aria-labelledby="dice-heading">
+      <h2 id="dice-heading">Dice</h2>
+
+      <div
+        class="dice"
+        id="dice"
+        aria-live="polite"
+        aria-label="Three-dimensional dice loading"
+      ></div>
+
+      <button class="roll-button" id="roll-button" type="button">Roll dice</button>
+
+      <div class="turn-controls" aria-label="Current turn controls">
+        <div class="turn-readout">
+          <span id="turn-phase-label">Game setup</span>
+          <span id="remaining-moves">Moves: 0</span>
+        </div>
+
+        <button
+          class="finish-movement-button"
+          id="finish-movement"
+          type="button"
+          disabled
+        >
+          Finish movement
+        </button>
+
+        <button
+          class="autoplay-toggle"
+          id="autoplay-toggle"
+          type="button"
+          aria-pressed="false"
+          disabled
+        >
+          Autoplay: Off
+        </button>
+      </div>
+
+      <p class="dice-status" id="dice-status">Ready to roll.</p>
+    </section>
+
+    <div
+      class="panel-resizer"
+      id="inventory-resizer"
+      role="separator"
+      aria-label="Resize the board and player inventory panels"
+      aria-controls="inventory-grid"
+      aria-orientation="horizontal"
+      aria-valuemin="110"
+      aria-valuemax="420"
+      aria-valuenow="190"
+      tabindex="0"
+      title="Drag to resize the inventory area. Double-click to reset."
+    >
+      <span aria-hidden="true"></span>
+    </div>
+
+    <section class="inventory-section" aria-labelledby="inventory-heading">
+      <h2 id="inventory-heading">Player inventories</h2>
+      <div class="inventory-grid" id="inventory-grid"></div>
+    </section>
+
+    <p class="load-message" id="load-message" role="status" hidden></p>
+  </main>
+
+  <div class="card-draw-layer" id="card-draw-layer" hidden>
+    <section
+      class="card-draw-dialog"
+      role="dialog"
+      aria-modal="true"
+      tabindex="-1"
+      aria-labelledby="card-draw-title"
+      aria-describedby="card-draw-description"
+    >
+      <header class="card-draw-header">
+        <p class="card-draw-kicker" id="card-draw-kicker">Deck 01</p>
+        <h2 id="card-draw-title">Drawing card…</h2>
+        <p id="card-draw-description">The card is being revealed.</p>
+      </header>
+
+      <div class="card-flip-stage" aria-live="polite">
+        <div class="drawn-card" id="drawn-card">
+          <div class="drawn-card__face drawn-card__back">
+            <img id="drawn-card-back" src="" alt="">
+            <span
+              class="card-image-fallback"
+              id="card-back-fallback"
+              aria-hidden="true"
+            ></span>
+          </div>
+
+          <div class="drawn-card__face drawn-card__front">
+            <img id="drawn-card-front" src="" alt="">
+            <span
+              class="card-image-fallback"
+              id="card-front-fallback"
+              aria-hidden="true"
+            ></span>
+          </div>
+        </div>
+      </div>
+
+      <p class="card-probability" id="card-probability"></p>
+
+      <div class="card-draw-actions" id="card-draw-actions" hidden>
+        <button class="card-action-button" id="store-card" type="button">
+          Store in inventory
+        </button>
+        <button class="card-action-button card-action-button--primary" id="use-card" type="button">
+          Use now
+        </button>
+      </div>
+
+      <p class="card-resolution" id="card-resolution" aria-live="polite"></p>
+    </section>
+  </div>
+
+  <div
+    class="turn-transition-layer"
+    id="turn-transition-layer"
+    role="status"
+    aria-live="assertive"
+    hidden
+  >
+    <section class="turn-transition-panel">
+      <p class="turn-transition-kicker" id="turn-transition-kicker">
+        Round 1
+      </p>
+      <h2 id="turn-transition-title">Player 1's Turn</h2>
+      <p id="turn-transition-message">Roll the dice to begin.</p>
+    </section>
+  </div>
+
+  <div
+    class="encounter-layer"
+    id="encounter-layer"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="encounter-title"
+    aria-describedby="encounter-message"
+    hidden
+  >
+    <section class="encounter-panel">
+      <p class="encounter-kicker" id="encounter-kicker">Reyath encounter</p>
+      <h2 id="encounter-title">Attack incoming</h2>
+      <p class="encounter-context" id="encounter-context">
+        Prepare to roll.
+      </p>
+
+      <div class="encounter-dice-shell">
+        <div
+          class="encounter-dice"
+          id="encounter-dice"
+          aria-label="Three-dimensional encounter dice"
+        ></div>
+        <div
+          class="encounter-roll"
+          id="encounter-roll"
+          aria-label="Encounter roll"
+          hidden
+        >—</div>
+      </div>
+
+      <button
+        class="encounter-roll-button"
+        id="encounter-roll-button"
+        type="button"
+        hidden
+      >
+        Roll dice
+      </button>
+      <p id="encounter-message">Resolving attack…</p>
+    </section>
+  </div>
+
+  <div
+    class="game-over-layer"
+    id="game-over-layer"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="game-over-title"
+    hidden
+  >
+    <section class="game-over-panel">
+      <p class="game-over-kicker" id="game-over-kicker">Game over</p>
+      <h2 id="game-over-title">The expedition has ended</h2>
+      <p id="game-over-message"></p>
+      <button id="restart-game" type="button">Start a new game</button>
+    </section>
+  </div>
+</body>
+</html>
