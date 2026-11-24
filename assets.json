@@ -1752,7 +1752,7 @@
   ],
   "reyath": {
     "name": "Reyath",
-    "sprite": "pictures-textures-assets/characters/reyath/Reyath.png",
+    "sprite": "pictures-textures-assets/characters/reyath/reyath.png",
     "health": 20,
     "maxHealth": 20,
     "state": "dormant",
